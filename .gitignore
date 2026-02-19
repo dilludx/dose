@@ -19,9 +19,6 @@ build/
 .gradle/
 build/
 
-# Local configuration file (sdk path, etc)
-local.properties
-
 # Android Studio
 *.iml
 .idea/
@@ -38,3 +35,4 @@ local.properties
 
 # Kotlin
 *.kotlin_metadata
+local.properties

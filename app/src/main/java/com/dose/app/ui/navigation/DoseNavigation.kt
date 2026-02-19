@@ -9,14 +9,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.dose.app.ui.screens.AddMedicationScreen
+import com.dose.app.ui.screens.EditMedicationScreen
 import com.dose.app.ui.screens.HomeScreen
 import com.dose.app.ui.screens.MedicationDetailScreen
+import com.dose.app.ui.screens.WelcomeScreen
 import com.dose.app.viewmodel.MedicationViewModel
 
 @Composable
 fun DoseNavigation(
     navController: NavHostController,
-    viewModel: MedicationViewModel
+    viewModel: MedicationViewModel,
+    startDestination: String = Screen.Welcome.route
 ) {
     val medications by viewModel.medications.collectAsState()
     val todayHistory by viewModel.todayHistory.collectAsState()
@@ -25,8 +28,20 @@ fun DoseNavigation(
     
     NavHost(
         navController = navController,
-        startDestination = Screen.Home.route
+        startDestination = startDestination
     ) {
+        // Welcome Screen
+        composable(Screen.Welcome.route) {
+            WelcomeScreen(
+                onGetStarted = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Welcome.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+        
+        // Home Screen
         composable(Screen.Home.route) {
             HomeScreen(
                 medications = medications,
@@ -48,6 +63,7 @@ fun DoseNavigation(
             )
         }
         
+        // Add Medication Screen
         composable(Screen.AddMedication.route) {
             AddMedicationScreen(
                 onNavigateBack = {
@@ -68,6 +84,7 @@ fun DoseNavigation(
             )
         }
         
+        // Medication Detail Screen
         composable(
             route = Screen.MedicationDetail.route,
             arguments = listOf(
@@ -88,11 +105,35 @@ fun DoseNavigation(
                         navController.popBackStack()
                     },
                     onEdit = {
-                        // TODO: Implement edit screen
+                        navController.navigate(Screen.EditMedication.createRoute(medicationId))
                     },
                     onDelete = {
                         viewModel.deleteMedication(medication)
                         navController.popBackStack()
+                    }
+                )
+            }
+        }
+        
+        // Edit Medication Screen
+        composable(
+            route = Screen.EditMedication.route,
+            arguments = listOf(
+                navArgument("medicationId") { type = NavType.LongType }
+            )
+        ) {
+            selectedMedication?.let { medication ->
+                EditMedicationScreen(
+                    medication = medication,
+                    onNavigateBack = {
+                        navController.popBackStack()
+                    },
+                    onSave = { updatedMedication ->
+                        viewModel.updateMedication(updatedMedication)
+                        // Go back to detail screen
+                        navController.popBackStack()
+                        // Refresh the selected medication
+                        viewModel.selectMedication(updatedMedication.id)
                     }
                 )
             }

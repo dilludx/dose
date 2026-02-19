@@ -1,6 +1,7 @@
 package com.dose.app.ui.navigation
 
 sealed class Screen(val route: String) {
+    object Welcome : Screen("welcome")
     object Home : Screen("home")
     object AddMedication : Screen("add_medication")
     object MedicationDetail : Screen("medication_detail/{medicationId}") {
