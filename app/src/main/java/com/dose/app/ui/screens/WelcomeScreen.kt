@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import com.dose.app.ui.theme.*
 
 @Composable
@@ -45,8 +46,8 @@ fun WelcomeScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        PrimaryGreen,
-                        PrimaryGreenDark
+                        GradientStart,
+                        GradientEnd
                     )
                 )
             )
@@ -203,5 +204,13 @@ private fun FeatureItem(
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White.copy(alpha = 0.95f)
         )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun WelcomeScreenPreview() {
+    DoseTheme {
+        WelcomeScreen(onGetStarted = {})
     }
 }

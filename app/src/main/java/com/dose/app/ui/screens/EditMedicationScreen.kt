@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.dose.app.data.Medication
+import androidx.compose.ui.tooling.preview.Preview
 import com.dose.app.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -412,6 +413,22 @@ fun EditMedicationScreen(
                 }
                 showTimePicker = false
             }
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun EditMedicationScreenPreview() {
+    DoseTheme {
+        EditMedicationScreen(
+            medication = Medication(
+                id = 1, name = "Paracetamol", dosage = "500mg",
+                frequency = "Twice Daily", times = "08:00,20:00",
+                instructions = "Take with food", pillsRemaining = 28, pillsPerDose = 1
+            ),
+            onNavigateBack = {},
+            onSave = {}
         )
     }
 }

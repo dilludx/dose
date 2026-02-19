@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.dose.app.data.DoseHistory
 import com.dose.app.data.Medication
 import com.dose.app.ui.theme.*
+import androidx.compose.ui.tooling.preview.Preview
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -443,4 +444,36 @@ private fun formatTime(time: String): String {
     val amPm = if (hour < 12) "AM" else "PM"
     val displayHour = if (hour == 0) 12 else if (hour > 12) hour - 12 else hour
     return String.format("%d:%02d %s", displayHour, minute, amPm)
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun MedicationDetailScreenPreview() {
+    val sampleMed = Medication(
+        id = 1, name = "Paracetamol", dosage = "500mg",
+        frequency = "Twice Daily", times = "08:00,20:00",
+        instructions = "Take with food", pillsRemaining = 8, pillsPerDose = 1,
+        refillReminder = 10
+    )
+    val sampleHistory = listOf(
+        DoseHistory(
+            id = 1, medicationId = 1, medicationName = "Paracetamol",
+            scheduledTime = System.currentTimeMillis() - 3600000, date = "2026-02-19",
+            status = "taken"
+        ),
+        DoseHistory(
+            id = 2, medicationId = 1, medicationName = "Paracetamol",
+            scheduledTime = System.currentTimeMillis() + 3600000, date = "2026-02-19",
+            status = "pending"
+        )
+    )
+    DoseTheme {
+        MedicationDetailScreen(
+            medication = sampleMed,
+            history = sampleHistory,
+            onNavigateBack = {},
+            onEdit = {},
+            onDelete = {}
+        )
+    }
 }

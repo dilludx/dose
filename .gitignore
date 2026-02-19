@@ -36,3 +36,4 @@ build/
 # Kotlin
 *.kotlin_metadata
 local.properties
+.kotlin/

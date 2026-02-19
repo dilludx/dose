@@ -26,8 +26,10 @@ import androidx.compose.ui.unit.dp
 import com.dose.app.data.DoseHistory
 import com.dose.app.data.Medication
 import com.dose.app.ui.theme.*
+import androidx.compose.ui.tooling.preview.Preview
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.compose.foundation.BorderStroke
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +44,7 @@ fun HomeScreen(
 ) {
     val dateFormat = SimpleDateFormat("EEEE, MMMM d", Locale.getDefault())
     val today = dateFormat.format(Date())
-    
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -76,20 +78,28 @@ fun HomeScreen(
         ) {
             // Header
             item {
-                Column {
+                Column(modifier = Modifier.padding(vertical = 12.dp)) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Hello, Dinesh",
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text("👋", style = MaterialTheme.typography.headlineMedium)
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Welcome to Dose",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = today,
+                        text = "Your daily health overview for $today",
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
-            
+
             // Stats Card
             item {
                 StatsCard(
@@ -97,7 +107,7 @@ fun HomeScreen(
                     total = todayStats.second
                 )
             }
-            
+
             // Today's Doses Section
             item {
                 Text(
@@ -107,40 +117,8 @@ fun HomeScreen(
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }
-            
-            if (todayHistory.isEmpty() && medications.isEmpty()) {
-                item {
-                    EmptyStateCard(onAddClick = onAddClick)
-                }
-            } else if (todayHistory.isEmpty() && medications.isNotEmpty()) {
-                item {
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.surfaceVariant
-                        )
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .padding(20.dp)
-                                .fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                Icons.Outlined.CheckCircle,
-                                contentDescription = null,
-                                tint = StatusTaken,
-                                modifier = Modifier.size(32.dp)
-                            )
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Text(
-                                text = "All done for today! 🎉",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                    }
-                }
-            } else {
+
+            if (todayHistory.isNotEmpty()) {
                 items(todayHistory) { dose ->
                     DoseCard(
                         dose = dose,
@@ -148,8 +126,57 @@ fun HomeScreen(
                         onMarkSkipped = { onMarkSkipped(dose.id) }
                     )
                 }
+            } else if (medications.isNotEmpty()) {
+                 item {
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                        ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier
+                                .padding(24.dp)
+                                .fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(48.dp)
+                                    .background(StatusTaken.copy(alpha = 0.2f), CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    Icons.Outlined.CheckCircle,
+                                    contentDescription = null,
+                                    tint = StatusTaken,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(16.dp))
+                            Column {
+                                Text(
+                                    text = "All done for today! 🎉",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = "Great job keeping up with your health.",
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                }
+            } else {
+                item {
+                    EmptyStateCard(onAddClick = onAddClick)
+                }
             }
-            
+
             // My Medications Section
             if (medications.isNotEmpty()) {
                 item {
@@ -160,7 +187,7 @@ fun HomeScreen(
                         modifier = Modifier.padding(top = 16.dp)
                     )
                 }
-                
+
                 items(medications) { medication ->
                     MedicationCard(
                         medication = medication,
@@ -168,7 +195,7 @@ fun HomeScreen(
                     )
                 }
             }
-            
+
             // Bottom spacing for FAB
             item {
                 Spacer(modifier = Modifier.height(80.dp))
@@ -181,7 +208,7 @@ fun HomeScreen(
 fun StatsCard(taken: Int, total: Int) {
     val progress = if (total > 0) taken.toFloat() / total else 0f
     val animatedProgress by animateFloatAsState(targetValue = progress, label = "progress")
-    
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -228,13 +255,13 @@ fun StatsCard(taken: Int, total: Int) {
                         )
                     }
                 }
-                
+
                 // Circular Progress
                 Box(
                     contentAlignment = Alignment.Center
                 ) {
                     CircularProgressIndicator(
-                        progress = animatedProgress,
+                        progress = { animatedProgress },
                         modifier = Modifier.size(72.dp),
                         strokeWidth = 8.dp,
                         color = Color.White,
@@ -258,26 +285,30 @@ fun DoseCard(
     onMarkTaken: () -> Unit,
     onMarkSkipped: () -> Unit
 ) {
-    val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
+    val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
     val scheduledTime = timeFormat.format(Date(dose.scheduledTime))
-    
+
     val statusColor by animateColorAsState(
         targetValue = when (dose.status) {
             "taken" -> StatusTaken
             "skipped" -> StatusSkipped
-            "missed" -> StatusMissed
             else -> StatusPending
-        },
-        label = "statusColor"
+        }, label = "statusColor"
     )
-    
+
     Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(
+                elevation = if (dose.status == "pending") 4.dp else 0.dp,
+                shape = RoundedCornerShape(20.dp),
+                spotColor = statusColor.copy(alpha = 0.5f)
+            ),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        border = if (dose.status == "pending") BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha=0.3f)) else null
     ) {
         Row(
             modifier = Modifier
@@ -285,12 +316,11 @@ fun DoseCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Time indicator
+            // Status Icon with Background
             Box(
                 modifier = Modifier
-                    .size(48.dp)
-                    .clip(CircleShape)
-                    .background(statusColor.copy(alpha = 0.15f)),
+                    .size(56.dp)
+                    .background(statusColor.copy(alpha = 0.15f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -301,54 +331,63 @@ fun DoseCard(
                     },
                     contentDescription = null,
                     tint = statusColor,
-                    modifier = Modifier.size(24.dp)
+                    modifier = Modifier.size(28.dp)
                 )
             }
-            
+
             Spacer(modifier = Modifier.width(16.dp))
-            
+
             // Medication info
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = dose.medicationName,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = scheduledTime,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        Icons.Outlined.AccessTime,
+                        contentDescription = null,
+                        modifier = Modifier.size(14.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = scheduledTime,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
-            
+
             // Action buttons (only show if pending)
             if (dose.status == "pending") {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    FilledIconButton(
+                    IconButton(
                         onClick = onMarkSkipped,
-                        colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = StatusSkipped.copy(alpha = 0.15f),
-                            contentColor = StatusSkipped
-                        ),
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier
+                            .size(44.dp)
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), CircleShape)
                     ) {
                         Icon(
                             Icons.Default.Close,
                             contentDescription = "Skip",
+                            tint = StatusSkipped,
                             modifier = Modifier.size(20.dp)
                         )
                     }
-                    
+
                     FilledIconButton(
                         onClick = onMarkTaken,
                         colors = IconButtonDefaults.filledIconButtonColors(
                             containerColor = StatusTaken,
                             contentColor = Color.White
                         ),
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier.size(44.dp)
                     ) {
                         Icon(
                             Icons.Default.Check,
@@ -370,42 +409,43 @@ fun MedicationCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(16.dp),
+            .clickable(onClick = onClick)
+            .shadow(2.dp, RoundedCornerShape(20.dp), spotColor = MaterialTheme.colorScheme.primary.copy(alpha=0.2f)),
+        shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        )
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Pill Icon
             Box(
                 modifier = Modifier
-                    .size(48.dp)
+                    .size(52.dp)
                     .clip(CircleShape)
-                    .background(PrimaryGreenLight.copy(alpha = 0.2f)),
+                    .background(MaterialTheme.colorScheme.primaryContainer),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     Icons.Outlined.Medication,
                     contentDescription = null,
-                    tint = PrimaryGreen,
-                    modifier = Modifier.size(24.dp)
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    modifier = Modifier.size(26.dp)
                 )
             }
-            
-            Spacer(modifier = Modifier.width(16.dp))
-            
+
+            Spacer(modifier = Modifier.width(20.dp))
+
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = medication.name,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -413,25 +453,34 @@ fun MedicationCard(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
-                if (medication.pillsRemaining > 0) {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    val pillsColor = if (medication.pillsRemaining <= medication.refillReminder) {
-                        StatusMissed
-                    } else {
-                        MaterialTheme.colorScheme.onSurfaceVariant
+
+                if (medication.pillsRemaining > 0 && medication.pillsRemaining <= medication.refillReminder) {
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Surface(
+                        color = StatusMissed.copy(alpha = 0.1f),
+                        shape = RoundedCornerShape(8.dp)
+                    ) {
+                        Row(
+                            Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(Icons.Default.Warning, contentDescription = null, modifier = Modifier.size(12.dp), tint = StatusMissed)
+                            Spacer(Modifier.width(4.dp))
+                            Text(
+                                text = "Refill needed (${medication.pillsRemaining} left)",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = StatusMissed,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
-                    Text(
-                        text = "${medication.pillsRemaining} pills remaining",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = pillsColor
-                    )
                 }
             }
-            
+
             Icon(
                 Icons.Default.ChevronRight,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
             )
         }
     }
@@ -483,5 +532,62 @@ fun EmptyStateCard(onAddClick: () -> Unit) {
                 Text("Add Medication")
             }
         }
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreenEmptyPreview() {
+    DoseTheme {
+        HomeScreen(
+            medications = emptyList(),
+            todayHistory = emptyList(),
+            todayStats = Pair(0, 0),
+            onAddClick = { },
+            onMedicationClick = { },
+            onMarkTaken = { _, _ -> },
+            onMarkSkipped = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreenWithDataPreview() {
+    val sampleMeds = listOf(
+        Medication(
+            id = 1, name = "Paracetamol", dosage = "500mg",
+            frequency = "Twice Daily", times = "08:00,20:00",
+            instructions = "Take with food", pillsRemaining = 28, pillsPerDose = 1
+        ),
+        Medication(
+            id = 2, name = "Vitamin D3", dosage = "1000 IU",
+            frequency = "Daily", times = "09:00",
+            instructions = "After breakfast", pillsRemaining = 5, pillsPerDose = 1,
+            refillReminder = 10
+        )
+    )
+    val sampleHistory = listOf(
+        DoseHistory(
+            id = 1, medicationId = 1, medicationName = "Paracetamol",
+            scheduledTime = System.currentTimeMillis(), date = "2026-02-19",
+            status = "taken"
+        ),
+        DoseHistory(
+            id = 2, medicationId = 2, medicationName = "Vitamin D3",
+            scheduledTime = System.currentTimeMillis() + 3600000, date = "2026-02-19",
+            status = "pending"
+        )
+    )
+    DoseTheme {
+        HomeScreen(
+            medications = sampleMeds,
+            todayHistory = sampleHistory,
+            todayStats = Pair(1, 2),
+            onAddClick = { },
+            onMedicationClick = { },
+            onMarkTaken = { _, _ -> },
+            onMarkSkipped = {}
+        )
     }
 }

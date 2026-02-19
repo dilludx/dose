@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.dose.app.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -493,4 +494,15 @@ fun TimePickerDialog(
             )
         }
     )
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun AddMedicationScreenPreview() {
+    DoseTheme {
+        AddMedicationScreen(
+            onNavigateBack = {},
+            onSave = { _, _, _, _, _, _, _ -> }
+        )
+    }
 }
