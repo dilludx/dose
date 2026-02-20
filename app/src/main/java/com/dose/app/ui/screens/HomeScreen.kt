@@ -69,20 +69,20 @@ fun HomeScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 24.dp, top = 8.dp)
+                    .padding(bottom = 16.dp, top = 4.dp)
                     .background(Color.Transparent),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = "DOSE",
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.ExtraBold,
                     color = PrimaryGreen.copy(alpha = 0.5f),
-                    letterSpacing = 2.sp
+                    letterSpacing = 1.5.sp
                 )
                 Text(
                     text = "Designed by Pharmacist",
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
                     color = SecondaryPurple.copy(alpha = 0.7f),
                     fontWeight = FontWeight.Medium
                 )
