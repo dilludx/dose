@@ -435,18 +435,18 @@ fun MedicationCard(
                 .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Pill Icon — Purple accent
+            // Pill Icon — Green accent
             Box(
                 modifier = Modifier
                     .size(52.dp)
                     .clip(CircleShape)
-                    .background(SecondaryPurpleSoft),
+                    .background(PrimaryGreenSoft),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     Icons.Outlined.Medication,
                     contentDescription = null,
-                    tint = SecondaryPurple,
+                    tint = PrimaryGreen,
                     modifier = Modifier.size(26.dp)
                 )
             }
