@@ -76,27 +76,6 @@ fun HomeScreen(
             // Header
             item {
                 Column(modifier = Modifier.padding(vertical = 12.dp)) {
-                    // App Branding
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.End
-                    ) {
-                        Text(
-                            text = "DOSE",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = PrimaryGreen,
-                            letterSpacing = 1.sp
-                        )
-                        Text(
-                            text = "Designed by Pharmacist",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
-                    
-                    Spacer(modifier = Modifier.height(24.dp))
 
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (userName.isNotBlank()) {
@@ -251,6 +230,28 @@ fun HomeScreen(
 
             // Bottom spacing for FAB
             item {
+                Spacer(modifier = Modifier.height(40.dp))
+                
+                // App Branding Footer
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "DOSE",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = PrimaryGreen.copy(alpha = 0.5f),
+                        letterSpacing = 2.sp
+                    )
+                    Text(
+                        text = "Designed by Pharmacist",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+                
                 Spacer(modifier = Modifier.height(80.dp))
             }
         }
