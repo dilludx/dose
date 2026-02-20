@@ -83,7 +83,7 @@ fun HomeScreen(
                 Text(
                     text = "Designed by Pharmacist",
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    color = SecondaryPurple.copy(alpha = 0.7f),
                     fontWeight = FontWeight.Medium
                 )
             }
