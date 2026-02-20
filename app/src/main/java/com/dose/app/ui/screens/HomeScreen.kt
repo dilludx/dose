@@ -84,7 +84,7 @@ fun HomeScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (userName.isNotBlank()) {
                             Text(
-                                text = "Hello, ",
+                                text = "Hi, ",
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onBackground
@@ -93,13 +93,13 @@ fun HomeScreen(
                                 text = userName,
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = SecondaryPurple
+                                color = PrimaryGreen
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text("👋", style = MaterialTheme.typography.headlineMedium)
                         } else {
                             Text(
-                                text = "Hello 👋",
+                                text = "Hi 👋",
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onBackground
