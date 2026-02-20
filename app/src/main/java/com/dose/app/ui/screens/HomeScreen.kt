@@ -64,6 +64,30 @@ fun HomeScreen(
                     )
                 }
             }
+            }
+        },
+        bottomBar = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 24.dp, top = 8.dp)
+                    .background(Color.Transparent),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "DOSE",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = PrimaryGreen.copy(alpha = 0.5f),
+                    letterSpacing = 2.sp
+                )
+                Text(
+                    text = "Designed by Pharmacist",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    fontWeight = FontWeight.Medium
+                )
+            }
         }
     ) { paddingValues ->
         LazyColumn(
@@ -230,28 +254,6 @@ fun HomeScreen(
 
             // Bottom spacing for FAB
             item {
-                Spacer(modifier = Modifier.height(40.dp))
-                
-                // App Branding Footer
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "DOSE",
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = PrimaryGreen.copy(alpha = 0.5f),
-                        letterSpacing = 2.sp
-                    )
-                    Text(
-                        text = "Designed by Pharmacist",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-                
                 Spacer(modifier = Modifier.height(80.dp))
             }
         }
