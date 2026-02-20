@@ -64,30 +64,6 @@ fun HomeScreen(
                     )
                 }
             }
-        },
-        bottomBar = {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp, top = 4.dp)
-                    .background(Color.Transparent),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = "DOSE",
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = TextSecondary.copy(alpha = 0.5f),
-                    letterSpacing = 1.5.sp
-                )
-                Text(
-                    text = "Designed by Pharmacist",
-                    style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
-                    color = TextSecondary.copy(alpha = 0.5f),
-                    fontWeight = FontWeight.Medium
-                )
-            }
-        }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
@@ -131,6 +107,31 @@ fun HomeScreen(
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "DOSE",
+                            style = MaterialTheme.typography.labelMedium,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = TextSecondary.copy(alpha = 0.4f),
+                            letterSpacing = 1.sp
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "•",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TextSecondary.copy(alpha = 0.4f)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = "Designed by Pharmacist",
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp),
+                            color = TextSecondary.copy(alpha = 0.5f),
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
                 }
             }
 
