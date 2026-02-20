@@ -235,18 +235,13 @@ fun StatsCard(taken: Int, total: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(12.dp, RoundedCornerShape(24.dp), spotColor = SecondaryPurple.copy(alpha = 0.3f)),
+            .shadow(4.dp, RoundedCornerShape(24.dp), spotColor = Color.Black.copy(alpha = 0.05f)),
         shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+        colors = CardDefaults.cardColors(containerColor = PrimaryGreenSoft)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(GradientGreen, GradientPurple)
-                    )
-                )
                 .padding(28.dp)
         ) {
             Row(
@@ -258,7 +253,7 @@ fun StatsCard(taken: Int, total: Int) {
                     Text(
                         text = "Today's Progress",
                         style = MaterialTheme.typography.titleMedium,
-                        color = Color.White.copy(alpha = 0.85f)
+                        color = TextSecondary
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(verticalAlignment = Alignment.Bottom) {
@@ -266,13 +261,13 @@ fun StatsCard(taken: Int, total: Int) {
                             text = "$taken",
                             style = MaterialTheme.typography.displaySmall,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = TextPrimary
                         )
                         Text(
                             text = " / $total doses",
                             style = MaterialTheme.typography.titleMedium,
-                            color = Color.White.copy(alpha = 0.8f),
-                            modifier = Modifier.padding(bottom = 4.dp)
+                            color = TextSecondary,
+                            modifier = Modifier.padding(bottom = 6.dp, start = 4.dp)
                         )
                     }
                 }
@@ -283,14 +278,14 @@ fun StatsCard(taken: Int, total: Int) {
                         progress = { animatedProgress },
                         modifier = Modifier.size(76.dp),
                         strokeWidth = 8.dp,
-                        color = Color.White,
-                        trackColor = Color.White.copy(alpha = 0.25f)
+                        color = PrimaryGreen,
+                        trackColor = PrimaryGreen.copy(alpha = 0.15f)
                     )
                     Text(
                         text = "${(animatedProgress * 100).toInt()}%",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White
+                        color = TextPrimary
                     )
                 }
             }
