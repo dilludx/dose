@@ -48,14 +48,6 @@ fun HomeScreen(
     val today = dateFormat.format(Date())
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.Transparent
-                )
-            )
-        },
         floatingActionButton = {
             if (medications.isNotEmpty()) {
                 FloatingActionButton(
