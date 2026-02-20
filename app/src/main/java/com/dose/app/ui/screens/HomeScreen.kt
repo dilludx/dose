@@ -43,7 +43,7 @@ fun HomeScreen(
     onMarkTaken: (Long, Long) -> Unit,
     onMarkSkipped: (Long) -> Unit
 ) {
-    val dateFormat = SimpleDateFormat("EEEE, MMMM d, yyyy", Locale.getDefault())
+    val dateFormat = SimpleDateFormat("d MMMM yyyy, EEEE", Locale.getDefault())
     val today = dateFormat.format(Date())
 
     Scaffold(
