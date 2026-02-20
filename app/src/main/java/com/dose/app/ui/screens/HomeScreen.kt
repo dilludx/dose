@@ -505,7 +505,7 @@ fun EmptyStateCard(onAddClick: () -> Unit) {
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = SecondaryPurpleSoft
+            containerColor = PrimaryGreenSoft
         )
     ) {
         Column(
@@ -518,14 +518,14 @@ fun EmptyStateCard(onAddClick: () -> Unit) {
                 modifier = Modifier
                     .size(72.dp)
                     .clip(CircleShape)
-                    .background(SecondaryPurple.copy(alpha = 0.15f)),
+                    .background(PrimaryGreen.copy(alpha = 0.15f)),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     Icons.Outlined.Medication,
                     contentDescription = null,
                     modifier = Modifier.size(36.dp),
-                    tint = SecondaryPurple
+                    tint = PrimaryGreen
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))
@@ -546,7 +546,7 @@ fun EmptyStateCard(onAddClick: () -> Unit) {
             Button(
                 onClick = onAddClick,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = SecondaryPurple
+                    containerColor = PrimaryGreen
                 ),
                 shape = RoundedCornerShape(16.dp),
                 modifier = Modifier.height(48.dp)
