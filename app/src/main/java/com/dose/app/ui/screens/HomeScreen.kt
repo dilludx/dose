@@ -64,6 +64,7 @@ fun HomeScreen(
                     )
                 }
             }
+        }
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
