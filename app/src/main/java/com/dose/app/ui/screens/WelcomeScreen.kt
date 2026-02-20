@@ -42,14 +42,16 @@ fun WelcomeScreen(
         label = "scale"
     )
 
+    // Soft pastel gradient — light mint to light lavender
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        GradientGreen,
-                        SecondaryPurple
+                        Color(0xFFE8FBF3),  // Very soft mint
+                        Color(0xFFF3EAFC),  // Very soft lavender
+                        Color(0xFFEDE5F7)   // Slightly deeper lavender at bottom
                     )
                 )
             )
@@ -70,17 +72,17 @@ fun WelcomeScreen(
                 modifier = Modifier
                     .size(120.dp)
                     .scale(scale)
-                    .clip(CircleShape)
+                    .clip(RoundedCornerShape(28.dp))
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(28.dp))
 
-            // App Name
+            // App Name — dark text on pastel bg
             Text(
                 text = "DOSE",
                 style = MaterialTheme.typography.displayMedium,
                 fontWeight = FontWeight.Bold,
-                color = Color.White,
+                color = TextPrimary,
                 letterSpacing = 4.sp
             )
 
@@ -90,7 +92,7 @@ fun WelcomeScreen(
             Text(
                 text = "Medication Management\nMade Simple",
                 style = MaterialTheme.typography.titleLarge,
-                color = Color.White.copy(alpha = 0.9f),
+                color = TextSecondary,
                 textAlign = TextAlign.Center,
                 lineHeight = 28.sp
             )
@@ -103,33 +105,36 @@ fun WelcomeScreen(
             ) {
                 FeatureItem(
                     icon = Icons.Outlined.Notifications,
-                    text = "Smart reminders at the right time"
+                    text = "Smart reminders at the right time",
+                    iconTint = PrimaryGreen
                 )
                 FeatureItem(
                     icon = Icons.Outlined.CheckCircle,
-                    text = "Track your daily doses"
+                    text = "Track your daily doses",
+                    iconTint = PrimaryGreen
                 )
                 FeatureItem(
                     icon = Icons.Outlined.Inventory2,
-                    text = "Refill alerts when running low"
+                    text = "Refill alerts when running low",
+                    iconTint = SecondaryPurple
                 )
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Get Started Button — White with Purple text to pop on gradient
+            // Get Started Button — brand gradient
             Button(
                 onClick = onGetStarted,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.White,
-                    contentColor = SecondaryPurple
+                    containerColor = PrimaryGreen,
+                    contentColor = Color.White
                 ),
                 shape = RoundedCornerShape(16.dp),
                 elevation = ButtonDefaults.buttonElevation(
-                    defaultElevation = 8.dp
+                    defaultElevation = 4.dp
                 )
             ) {
                 Text(
@@ -154,14 +159,14 @@ fun WelcomeScreen(
                 Icon(
                     imageVector = Icons.Outlined.Verified,
                     contentDescription = null,
-                    tint = Color.White.copy(alpha = 0.8f),
+                    tint = SecondaryPurple.copy(alpha = 0.7f),
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = "Designed by a Pharmacist",
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.White.copy(alpha = 0.8f)
+                    color = TextSecondary
                 )
             }
 
@@ -173,7 +178,8 @@ fun WelcomeScreen(
 @Composable
 private fun FeatureItem(
     icon: ImageVector,
-    text: String
+    text: String,
+    iconTint: Color = PrimaryGreen
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -181,15 +187,15 @@ private fun FeatureItem(
     ) {
         Box(
             modifier = Modifier
-                .size(40.dp)
+                .size(44.dp)
                 .clip(CircleShape)
-                .background(Color.White.copy(alpha = 0.2f)),
+                .background(iconTint.copy(alpha = 0.12f)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = Color.White,
+                tint = iconTint,
                 modifier = Modifier.size(22.dp)
             )
         }
@@ -197,7 +203,7 @@ private fun FeatureItem(
         Text(
             text = text,
             style = MaterialTheme.typography.bodyLarge,
-            color = Color.White.copy(alpha = 0.95f)
+            color = TextPrimary
         )
     }
 }
