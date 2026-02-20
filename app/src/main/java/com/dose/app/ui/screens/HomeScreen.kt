@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,7 +85,10 @@ fun HomeScreen(
             item {
                 Column(modifier = Modifier.padding(vertical = 12.dp)) {
                     // App Branding
-                    Column {
+                    Column(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalAlignment = Alignment.End
+                    ) {
                         Text(
                             text = "DOSE",
                             style = MaterialTheme.typography.titleLarge,
