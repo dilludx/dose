@@ -348,7 +348,7 @@ fun EditMedicationScreen(
                             Icon(
                                 Icons.Outlined.Inventory2,
                                 contentDescription = null,
-                                tint = SecondaryTeal
+                                tint = SecondaryPurple
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
@@ -370,7 +370,7 @@ fun EditMedicationScreen(
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 shape = RoundedCornerShape(12.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = SecondaryTeal,
+                                    focusedBorderColor = SecondaryPurple,
                                     unfocusedBorderColor = MaterialTheme.colorScheme.outline
                                 ),
                                 singleLine = true
@@ -383,7 +383,7 @@ fun EditMedicationScreen(
                                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                                 shape = RoundedCornerShape(12.dp),
                                 colors = OutlinedTextFieldDefaults.colors(
-                                    focusedBorderColor = SecondaryTeal,
+                                    focusedBorderColor = SecondaryPurple,
                                     unfocusedBorderColor = MaterialTheme.colorScheme.outline
                                 ),
                                 singleLine = true
