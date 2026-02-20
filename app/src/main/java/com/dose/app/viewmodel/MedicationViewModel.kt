@@ -40,6 +40,15 @@ class MedicationViewModel(application: Application) : AndroidViewModel(applicati
     private val _todayStats = MutableStateFlow(Pair(0, 0)) // taken, total
     val todayStats: StateFlow<Pair<Int, Int>> = _todayStats.asStateFlow()
     
+    private val prefs = application.getSharedPreferences("dose_prefs", android.content.Context.MODE_PRIVATE)
+    private val _userName = MutableStateFlow(prefs.getString("user_name", "") ?: "")
+    val userName: StateFlow<String> = _userName.asStateFlow()
+    
+    fun saveUserName(name: String) {
+        prefs.edit().putString("user_name", name).apply()
+        _userName.value = name
+    }
+    
     init {
         loadMedications()
         loadTodayHistory()

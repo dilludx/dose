@@ -12,6 +12,7 @@ import com.dose.app.ui.screens.AddMedicationScreen
 import com.dose.app.ui.screens.EditMedicationScreen
 import com.dose.app.ui.screens.HomeScreen
 import com.dose.app.ui.screens.MedicationDetailScreen
+import com.dose.app.ui.screens.SetupScreen
 import com.dose.app.ui.screens.WelcomeScreen
 import com.dose.app.viewmodel.MedicationViewModel
 
@@ -25,6 +26,7 @@ fun DoseNavigation(
     val todayHistory by viewModel.todayHistory.collectAsState()
     val todayStats by viewModel.todayStats.collectAsState()
     val selectedMedication by viewModel.selectedMedication.collectAsState()
+    val userName by viewModel.userName.collectAsState()
     
     NavHost(
         navController = navController,
@@ -34,8 +36,20 @@ fun DoseNavigation(
         composable(Screen.Welcome.route) {
             WelcomeScreen(
                 onGetStarted = {
-                    navController.navigate(Screen.Home.route) {
+                    navController.navigate(Screen.Setup.route) {
                         popUpTo(Screen.Welcome.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+        
+        // Setup Screen
+        composable(Screen.Setup.route) {
+            SetupScreen(
+                onNameSaved = { name ->
+                    viewModel.saveUserName(name)
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Setup.route) { inclusive = true }
                     }
                 }
             )
@@ -44,6 +58,7 @@ fun DoseNavigation(
         // Home Screen
         composable(Screen.Home.route) {
             HomeScreen(
+                userName = userName,
                 medications = medications,
                 todayHistory = todayHistory,
                 todayStats = todayStats,

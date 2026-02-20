@@ -34,6 +34,7 @@ import androidx.compose.foundation.BorderStroke
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    userName: String,
     medications: List<Medication>,
     todayHistory: List<DoseHistory>,
     todayStats: Pair<Int, Int>,
@@ -82,13 +83,15 @@ fun HomeScreen(
                 Column(modifier = Modifier.padding(vertical = 12.dp)) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "Hello, Dinesh",
+                            text = if (userName.isNotBlank()) "Hello, $userName" else "Hello 👋",
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onBackground
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text("👋", style = MaterialTheme.typography.headlineMedium)
+                        if (userName.isNotBlank()) {
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("👋", style = MaterialTheme.typography.headlineMedium)
+                        }
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
@@ -566,6 +569,7 @@ fun EmptyStateCard(onAddClick: () -> Unit) {
 fun HomeScreenEmptyPreview() {
     DoseTheme {
         HomeScreen(
+            userName = "Dinesh",
             medications = emptyList(),
             todayHistory = emptyList(),
             todayStats = Pair(0, 0),
@@ -607,6 +611,7 @@ fun HomeScreenWithDataPreview() {
     )
     DoseTheme {
         HomeScreen(
+            userName = "Dinesh",
             medications = sampleMeds,
             todayHistory = sampleHistory,
             todayStats = Pair(1, 2),
