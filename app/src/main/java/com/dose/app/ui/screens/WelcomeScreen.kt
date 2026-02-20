@@ -70,7 +70,7 @@ fun WelcomeScreen(
                 style = MaterialTheme.typography.displayLarge.copy(
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 64.sp,
-                    letterSpacing = 10.sp
+                    letterSpacing = 0.sp
                 )
             )
 
