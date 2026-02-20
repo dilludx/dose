@@ -77,13 +77,13 @@ fun HomeScreen(
                     text = "DOSE",
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.ExtraBold,
-                    color = PrimaryGreen.copy(alpha = 0.5f),
+                    color = TextSecondary.copy(alpha = 0.5f),
                     letterSpacing = 1.5.sp
                 )
                 Text(
                     text = "Designed by Pharmacist",
                     style = MaterialTheme.typography.labelSmall.copy(fontSize = 9.sp),
-                    color = SecondaryPurple.copy(alpha = 0.7f),
+                    color = TextSecondary.copy(alpha = 0.5f),
                     fontWeight = FontWeight.Medium
                 )
             }
