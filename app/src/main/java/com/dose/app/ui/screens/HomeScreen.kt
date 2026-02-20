@@ -83,6 +83,25 @@ fun HomeScreen(
             // Header
             item {
                 Column(modifier = Modifier.padding(vertical = 12.dp)) {
+                    // App Branding
+                    Column {
+                        Text(
+                            text = "DOSE",
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = PrimaryGreen,
+                            letterSpacing = 1.sp
+                        )
+                        Text(
+                            text = "Designed by Pharmacist",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                    
+                    Spacer(modifier = Modifier.height(24.dp))
+
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (userName.isNotBlank()) {
                             Text(
