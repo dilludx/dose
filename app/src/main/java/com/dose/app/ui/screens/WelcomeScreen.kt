@@ -63,13 +63,19 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // App Name in Quicksand Bold
+            // App Name — Extra Bold with brand gradient
+            val textGradient = Brush.horizontalGradient(
+                colors = listOf(PrimaryGreenDark, SecondaryPurple)
+            )
+            
             Text(
                 text = "DOSE",
-                style = MaterialTheme.typography.displayMedium,
-                fontWeight = FontWeight.Bold,
-                color = TextPrimary,
-                letterSpacing = 6.sp
+                style = MaterialTheme.typography.displayLarge.copy(
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 64.sp,
+                    letterSpacing = 10.sp,
+                    brush = textGradient
+                )
             )
 
             Spacer(modifier = Modifier.height(6.dp))
