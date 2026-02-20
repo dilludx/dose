@@ -58,7 +58,7 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddClick,
-                containerColor = SecondaryPurple,
+                containerColor = PrimaryGreen,
                 contentColor = Color.White,
                 modifier = Modifier.size(64.dp),
                 shape = CircleShape
