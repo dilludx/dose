@@ -57,9 +57,10 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddClick,
-                containerColor = PrimaryGreen,
+                containerColor = SecondaryPurple,
                 contentColor = Color.White,
-                modifier = Modifier.size(64.dp)
+                modifier = Modifier.size(64.dp),
+                shape = CircleShape
             ) {
                 Icon(
                     Icons.Default.Add,
@@ -79,9 +80,7 @@ fun HomeScreen(
             // Header
             item {
                 Column(modifier = Modifier.padding(vertical = 12.dp)) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = "Hello, Dinesh",
                             style = MaterialTheme.typography.headlineMedium,
@@ -93,14 +92,14 @@ fun HomeScreen(
                     }
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "Your daily health overview for $today",
+                        text = today,
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
 
-            // Stats Card
+            // Stats Card — Brand Gradient
             item {
                 StatsCard(
                     taken = todayStats.first,
@@ -108,14 +107,35 @@ fun HomeScreen(
                 )
             }
 
-            // Today's Doses Section
+            // Today's Doses
             item {
-                Text(
-                    text = "Today's Schedule",
-                    style = MaterialTheme.typography.titleLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(top = 8.dp)
-                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Today's Schedule",
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    if (todayHistory.isNotEmpty()) {
+                        Surface(
+                            color = SecondaryPurpleSoft,
+                            shape = RoundedCornerShape(12.dp)
+                        ) {
+                            Text(
+                                text = "${todayHistory.size} doses",
+                                style = MaterialTheme.typography.labelMedium,
+                                color = SecondaryPurple,
+                                fontWeight = FontWeight.SemiBold,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
+                            )
+                        }
+                    }
+                }
             }
 
             if (todayHistory.isNotEmpty()) {
@@ -127,12 +147,12 @@ fun HomeScreen(
                     )
                 }
             } else if (medications.isNotEmpty()) {
-                 item {
+                item {
                     Card(
                         modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(16.dp),
+                        shape = RoundedCornerShape(20.dp),
                         colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
+                            containerColor = PrimaryGreenSoft
                         ),
                         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
                     ) {
@@ -145,13 +165,13 @@ fun HomeScreen(
                             Box(
                                 modifier = Modifier
                                     .size(48.dp)
-                                    .background(StatusTaken.copy(alpha = 0.2f), CircleShape),
+                                    .background(PrimaryGreen.copy(alpha = 0.2f), CircleShape),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(
                                     Icons.Outlined.CheckCircle,
                                     contentDescription = null,
-                                    tint = StatusTaken,
+                                    tint = PrimaryGreen,
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -212,8 +232,8 @@ fun StatsCard(taken: Int, total: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .shadow(8.dp, RoundedCornerShape(20.dp)),
-        shape = RoundedCornerShape(20.dp),
+            .shadow(12.dp, RoundedCornerShape(24.dp), spotColor = SecondaryPurple.copy(alpha = 0.3f)),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Box(
@@ -221,10 +241,10 @@ fun StatsCard(taken: Int, total: Int) {
                 .fillMaxWidth()
                 .background(
                     brush = Brush.horizontalGradient(
-                        colors = listOf(GradientStart, GradientEnd)
+                        colors = listOf(GradientGreen, GradientPurple)
                     )
                 )
-                .padding(24.dp)
+                .padding(28.dp)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -235,12 +255,10 @@ fun StatsCard(taken: Int, total: Int) {
                     Text(
                         text = "Today's Progress",
                         style = MaterialTheme.typography.titleMedium,
-                        color = Color.White.copy(alpha = 0.9f)
+                        color = Color.White.copy(alpha = 0.85f)
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Row(
-                        verticalAlignment = Alignment.Bottom
-                    ) {
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row(verticalAlignment = Alignment.Bottom) {
                         Text(
                             text = "$taken",
                             style = MaterialTheme.typography.displaySmall,
@@ -257,15 +275,13 @@ fun StatsCard(taken: Int, total: Int) {
                 }
 
                 // Circular Progress
-                Box(
-                    contentAlignment = Alignment.Center
-                ) {
+                Box(contentAlignment = Alignment.Center) {
                     CircularProgressIndicator(
                         progress = { animatedProgress },
-                        modifier = Modifier.size(72.dp),
+                        modifier = Modifier.size(76.dp),
                         strokeWidth = 8.dp,
                         color = Color.White,
-                        trackColor = Color.White.copy(alpha = 0.3f)
+                        trackColor = Color.White.copy(alpha = 0.25f)
                     )
                     Text(
                         text = "${(animatedProgress * 100).toInt()}%",
@@ -300,15 +316,14 @@ fun DoseCard(
         modifier = Modifier
             .fillMaxWidth()
             .shadow(
-                elevation = if (dose.status == "pending") 4.dp else 0.dp,
+                elevation = if (dose.status == "pending") 6.dp else 1.dp,
                 shape = RoundedCornerShape(20.dp),
-                spotColor = statusColor.copy(alpha = 0.5f)
+                spotColor = if (dose.status == "pending") PrimaryGreen.copy(alpha = 0.3f) else Color.Transparent
             ),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
-        ),
-        border = if (dose.status == "pending") BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha=0.3f)) else null
+        )
     ) {
         Row(
             modifier = Modifier
@@ -316,11 +331,11 @@ fun DoseCard(
                 .padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Status Icon with Background
+            // Status Icon
             Box(
                 modifier = Modifier
-                    .size(56.dp)
-                    .background(statusColor.copy(alpha = 0.15f), CircleShape),
+                    .size(52.dp)
+                    .background(statusColor.copy(alpha = 0.12f), CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
@@ -331,13 +346,13 @@ fun DoseCard(
                     },
                     contentDescription = null,
                     tint = statusColor,
-                    modifier = Modifier.size(28.dp)
+                    modifier = Modifier.size(26.dp)
                 )
             }
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Medication info
+            // Info
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = dose.medicationName,
@@ -364,14 +379,14 @@ fun DoseCard(
                 }
             }
 
-            // Action buttons (only show if pending)
+            // Action buttons
             if (dose.status == "pending") {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     IconButton(
                         onClick = onMarkSkipped,
                         modifier = Modifier
-                            .size(44.dp)
-                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f), CircleShape)
+                            .size(42.dp)
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f), CircleShape)
                     ) {
                         Icon(
                             Icons.Default.Close,
@@ -384,10 +399,10 @@ fun DoseCard(
                     FilledIconButton(
                         onClick = onMarkTaken,
                         colors = IconButtonDefaults.filledIconButtonColors(
-                            containerColor = StatusTaken,
+                            containerColor = PrimaryGreen,
                             contentColor = Color.White
                         ),
-                        modifier = Modifier.size(44.dp)
+                        modifier = Modifier.size(42.dp)
                     ) {
                         Icon(
                             Icons.Default.Check,
@@ -410,7 +425,7 @@ fun MedicationCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .shadow(2.dp, RoundedCornerShape(20.dp), spotColor = MaterialTheme.colorScheme.primary.copy(alpha=0.2f)),
+            .shadow(2.dp, RoundedCornerShape(20.dp)),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
@@ -422,18 +437,18 @@ fun MedicationCard(
                 .padding(20.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Pill Icon
+            // Pill Icon — Purple accent
             Box(
                 modifier = Modifier
                     .size(52.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer),
+                    .background(SecondaryPurpleSoft),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     Icons.Outlined.Medication,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                    tint = SecondaryPurple,
                     modifier = Modifier.size(26.dp)
                 )
             }
@@ -490,9 +505,9 @@ fun MedicationCard(
 fun EmptyStateCard(onAddClick: () -> Unit) {
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(24.dp),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+            containerColor = SecondaryPurpleSoft
         )
     ) {
         Column(
@@ -501,35 +516,46 @@ fun EmptyStateCard(onAddClick: () -> Unit) {
                 .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Icon(
-                Icons.Outlined.Science,
-                contentDescription = null,
-                modifier = Modifier.size(64.dp),
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .size(72.dp)
+                    .clip(CircleShape)
+                    .background(SecondaryPurple.copy(alpha = 0.15f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    Icons.Outlined.Medication,
+                    contentDescription = null,
+                    modifier = Modifier.size(36.dp),
+                    tint = SecondaryPurple
+                )
+            }
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = "No medications yet",
                 style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.Bold
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = "Add your first medication to get started with reminders",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(24.dp))
             Button(
                 onClick = onAddClick,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = PrimaryGreen
-                )
+                    containerColor = SecondaryPurple
+                ),
+                shape = RoundedCornerShape(16.dp),
+                modifier = Modifier.height(48.dp)
             ) {
                 Icon(Icons.Default.Add, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Add Medication")
+                Text("Add Medication", fontWeight = FontWeight.SemiBold)
             }
         }
     }
@@ -570,12 +596,12 @@ fun HomeScreenWithDataPreview() {
     val sampleHistory = listOf(
         DoseHistory(
             id = 1, medicationId = 1, medicationName = "Paracetamol",
-            scheduledTime = System.currentTimeMillis(), date = "2026-02-19",
+            scheduledTime = System.currentTimeMillis(), date = "2026-02-20",
             status = "taken"
         ),
         DoseHistory(
             id = 2, medicationId = 2, medicationName = "Vitamin D3",
-            scheduledTime = System.currentTimeMillis() + 3600000, date = "2026-02-19",
+            scheduledTime = System.currentTimeMillis() + 3600000, date = "2026-02-20",
             status = "pending"
         )
     )

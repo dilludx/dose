@@ -10,19 +10,19 @@ import androidx.compose.ui.graphics.Color
 private val LightColorScheme = lightColorScheme(
     primary = PrimaryGreen,
     onPrimary = TextOnPrimary,
-    primaryContainer = PrimaryGreenLight.copy(alpha = 0.3f), // Softer container
+    primaryContainer = PrimaryGreenSoft,
     onPrimaryContainer = PrimaryGreenDark,
-    secondary = SecondaryTeal,
+    secondary = SecondaryPurple,
     onSecondary = TextOnPrimary,
-    secondaryContainer = SecondaryTeal.copy(alpha = 0.2f),
-    onSecondaryContainer = SecondaryTealDark,
-    tertiary = TertiaryPurple,
+    secondaryContainer = SecondaryPurpleSoft,
+    onSecondaryContainer = SecondaryPurpleDark,
+    tertiary = TertiaryAmber,
     onTertiary = TextOnPrimary,
     background = BackgroundLight,
     onBackground = TextPrimary,
     surface = SurfaceLight,
     onSurface = TextPrimary,
-    surfaceVariant = Color(0xFFE2E8F0), // Slate 200
+    surfaceVariant = Color(0xFFF1F2F6),
     onSurfaceVariant = TextSecondary,
     outline = DividerColor,
     error = StatusMissed,
@@ -30,24 +30,24 @@ private val LightColorScheme = lightColorScheme(
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = PrimaryGreen, // Keep vibrant even in dark mode
+    primary = PrimaryGreen,
     onPrimary = TextOnPrimary,
     primaryContainer = PrimaryGreenDark,
-    onPrimaryContainer = TextOnPrimary,
-    secondary = SecondaryTealLight,
+    onPrimaryContainer = PrimaryGreenLight,
+    secondary = SecondaryPurpleLight,
     onSecondary = TextPrimary,
-    secondaryContainer = SecondaryTealDark,
-    onSecondaryContainer = SecondaryTealLight,
-    tertiary = TertiaryPurple,
-    onTertiary = TextOnPrimary,
+    secondaryContainer = SecondaryPurpleDark,
+    onSecondaryContainer = SecondaryPurpleLight,
+    tertiary = TertiaryAmber,
+    onTertiary = TextPrimary,
     background = BackgroundDark,
-    onBackground = TextOnPrimary,
+    onBackground = Color(0xFFE5E7EB),
     surface = SurfaceDark,
-    onSurface = TextOnPrimary,
+    onSurface = Color(0xFFE5E7EB),
     surfaceVariant = CardDark,
-    onSurfaceVariant = Color(0xFF94A3B8), // Slate 400
-    outline = Color(0xFF475569), // Slate 600
-    error = Color(0xFFF87171), // Red 400
+    onSurfaceVariant = Color(0xFF9CA3AF),
+    outline = Color(0xFF374151),
+    error = Color(0xFFF87171),
     onError = TextPrimary
 )
 

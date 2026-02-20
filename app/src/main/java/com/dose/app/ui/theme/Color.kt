@@ -2,45 +2,53 @@ package com.dose.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Modern Emerald & Teal Theme (Premium Clean Look)
-val PrimaryGreen = Color(0xFF10B981) // Vibrant Emerald
-val PrimaryGreenDark = Color(0xFF047857)
-val PrimaryGreenLight = Color(0xFF6EE7B7)
+// ═══════════════════════════════════════════
+// Dose Brand Colors
+// Primary: #00B482 (Mint Green)
+// Secondary: #832B93 (Royal Purple)
+// ═══════════════════════════════════════════
 
-// Secondary Colors - Deep Ocean Teal
-val SecondaryTeal = Color(0xFF0E7490) // Deep Teal
-val SecondaryTealDark = Color(0xFF155E75)
-val SecondaryTealLight = Color(0xFF67E8F9)
+// Primary — Mint Green
+val PrimaryGreen = Color(0xFF00B482)
+val PrimaryGreenDark = Color(0xFF009068)
+val PrimaryGreenLight = Color(0xFF66D4AD)
+val PrimaryGreenSoft = Color(0xFFE6F9F3)  // Very light mint for containers
 
-// Accent / Tertiary - Soft Purple for subtle highlights
-val TertiaryPurple = Color(0xFF8B5CF6)
+// Secondary — Royal Purple
+val SecondaryPurple = Color(0xFF832B93)
+val SecondaryPurpleDark = Color(0xFF6A2277)
+val SecondaryPurpleLight = Color(0xFFB86CC8)
+val SecondaryPurpleSoft = Color(0xFFF5E8F8) // Very light purple for containers
 
-// Background Colors - Softer, warmer greys
-val BackgroundLight = Color(0xFFF8FAFC) // Very light blue-grey
-val BackgroundDark = Color(0xFF0F172A) // Deep slate blue
+// Tertiary — Warm Amber (alerts / highlights)
+val TertiaryAmber = Color(0xFFF59E0B)
+
+// Backgrounds
+val BackgroundLight = Color(0xFFF7F8FC)   // Cool off-white
+val BackgroundDark = Color(0xFF121220)    // Deep navy-black
 val SurfaceLight = Color(0xFFFFFFFF)
-val SurfaceDark = Color(0xFF1E293B) // Slate 800
+val SurfaceDark = Color(0xFF1C1C2E)      // Dark card surface
 
-// Card Colors
+// Cards
 val CardLight = Color(0xFFFFFFFF)
-val CardDark = Color(0xFF334155) // Slate 700
+val CardDark = Color(0xFF252540)
 
-// Text Colors
-val TextPrimary = Color(0xFF0F172A) // Slate 900
-val TextSecondary = Color(0xFF64748B) // Slate 500
+// Text
+val TextPrimary = Color(0xFF1A1A2E)      // Near-black with hint of purple
+val TextSecondary = Color(0xFF6B7280)    // Cool grey
 val TextOnPrimary = Color(0xFFFFFFFF)
 
-// Status Colors - Softer, less harsh
-val StatusTaken = Color(0xFF10B981) // Matches primary
-val StatusPending = Color(0xFFF59E0B) // Amber 500
-val StatusMissed = Color(0xFFEF4444) // Red 500
-val StatusSkipped = Color(0xFF94A3B8) // Slate 400
+// Status Colors
+val StatusTaken = Color(0xFF00B482)       // Brand green = success
+val StatusPending = Color(0xFFF59E0B)     // Amber
+val StatusMissed = Color(0xFFEF4444)      // Red
+val StatusSkipped = Color(0xFF9CA3AF)     // Grey
 
-// Gradient Colors for Header
-val GradientStart = Color(0xFF059669) // Emerald 600
-val GradientEnd = Color(0xFF0891B2)   // Cyan 600
+// Gradient Colors
+val GradientGreen = Color(0xFF00B482)
+val GradientPurple = Color(0xFF832B93)
 
-// Additional UI Colors
-val DividerColor = Color(0xFFE2E8F0) // Slate 200
-val IconTint = Color(0xFF475569)     // Slate 600
-val RippleColor = Color(0x1F0F172A)
+// Additional UI
+val DividerColor = Color(0xFFE5E7EB)
+val IconTint = Color(0xFF6B7280)
+val RippleColor = Color(0x1F1A1A2E)

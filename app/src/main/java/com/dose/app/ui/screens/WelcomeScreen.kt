@@ -28,7 +28,6 @@ import com.dose.app.ui.theme.*
 fun WelcomeScreen(
     onGetStarted: () -> Unit
 ) {
-    // Subtle pulse animation for the icon
     val infiniteTransition = rememberInfiniteTransition(label = "pulse")
     val scale by infiniteTransition.animateFloat(
         initialValue = 1f,
@@ -46,8 +45,8 @@ fun WelcomeScreen(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        GradientStart,
-                        GradientEnd
+                        GradientGreen,
+                        SecondaryPurple
                     )
                 )
             )
@@ -60,7 +59,7 @@ fun WelcomeScreen(
             verticalArrangement = Arrangement.Center
         ) {
             Spacer(modifier = Modifier.weight(0.5f))
-            
+
             // App Icon with pulse animation
             Box(
                 modifier = Modifier
@@ -77,9 +76,9 @@ fun WelcomeScreen(
                     tint = Color.White
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             // App Name
             Text(
                 text = "DOSE",
@@ -88,9 +87,9 @@ fun WelcomeScreen(
                 color = Color.White,
                 letterSpacing = 4.sp
             )
-            
+
             Spacer(modifier = Modifier.height(8.dp))
-            
+
             // Tagline
             Text(
                 text = "Medication Management\nMade Simple",
@@ -99,9 +98,9 @@ fun WelcomeScreen(
                 textAlign = TextAlign.Center,
                 lineHeight = 28.sp
             )
-            
+
             Spacer(modifier = Modifier.height(48.dp))
-            
+
             // Feature list
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -119,10 +118,10 @@ fun WelcomeScreen(
                     text = "Refill alerts when running low"
                 )
             }
-            
+
             Spacer(modifier = Modifier.weight(1f))
-            
-            // Get Started Button
+
+            // Get Started Button — White with Purple text to pop on gradient
             Button(
                 onClick = onGetStarted,
                 modifier = Modifier
@@ -130,7 +129,7 @@ fun WelcomeScreen(
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White,
-                    contentColor = PrimaryGreen
+                    contentColor = SecondaryPurple
                 ),
                 shape = RoundedCornerShape(16.dp),
                 elevation = ButtonDefaults.buttonElevation(
@@ -140,7 +139,7 @@ fun WelcomeScreen(
                 Text(
                     text = "Get Started",
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold
+                    fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Icon(
@@ -148,9 +147,9 @@ fun WelcomeScreen(
                     contentDescription = null
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             // Pharmacist badge
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -169,7 +168,7 @@ fun WelcomeScreen(
                     color = Color.White.copy(alpha = 0.8f)
                 )
             }
-            
+
             Spacer(modifier = Modifier.height(32.dp))
         }
     }
