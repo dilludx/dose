@@ -68,7 +68,7 @@ fun AddMedicationScreen(
                     }
                 },
                 actions = {
-                    TextButton(
+                    Button(
                         onClick = {
                             if (isValid) {
                                 onSave(
@@ -82,12 +82,13 @@ fun AddMedicationScreen(
                                 )
                             }
                         },
-                        enabled = isValid
-                    ) {
-                        Text(
-                            "Save",
-                            color = if (isValid) PrimaryGreen else MaterialTheme.colorScheme.onSurfaceVariant
+                        enabled = isValid,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = PrimaryGreen,
+                            contentColor = Color.White
                         )
+                    ) {
+                        Text("Save", fontWeight = FontWeight.Bold)
                     }
                 }
             )

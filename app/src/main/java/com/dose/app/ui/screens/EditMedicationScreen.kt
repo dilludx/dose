@@ -70,7 +70,7 @@ fun EditMedicationScreen(
                     }
                 },
                 actions = {
-                    TextButton(
+                    Button(
                         onClick = {
                             if (isValid) {
                                 val updated = medication.copy(
@@ -86,12 +86,13 @@ fun EditMedicationScreen(
                                 onSave(updated)
                             }
                         },
-                        enabled = isValid && hasChanges
-                    ) {
-                        Text(
-                            "Update",
-                            color = if (isValid && hasChanges) PrimaryGreen else MaterialTheme.colorScheme.onSurfaceVariant
+                        enabled = isValid && hasChanges,
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = PrimaryGreen,
+                            contentColor = Color.White
                         )
+                    ) {
+                        Text("Update", fontWeight = FontWeight.Bold)
                     }
                 }
             )
