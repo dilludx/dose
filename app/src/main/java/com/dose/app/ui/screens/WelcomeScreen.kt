@@ -66,7 +66,7 @@ fun WelcomeScreen(
             // App Name — Extra Bold with brand color
             Text(
                 text = "DOSE",
-                color = PrimaryGreenDark,
+                color = PrimaryGreen,
                 style = MaterialTheme.typography.displayLarge.copy(
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 64.sp,
