@@ -126,13 +126,13 @@ fun HomeScreen(
                     )
                     if (todayHistory.isNotEmpty()) {
                         Surface(
-                            color = SecondaryPurpleSoft,
+                            color = PrimaryGreenSoft,
                             shape = RoundedCornerShape(12.dp)
                         ) {
                             Text(
                                 text = "${todayHistory.size} doses",
                                 style = MaterialTheme.typography.labelMedium,
-                                color = SecondaryPurple,
+                                color = PrimaryGreen,
                                 fontWeight = FontWeight.SemiBold,
                                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp)
                             )
