@@ -56,18 +56,20 @@ fun HomeScreen(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = onAddClick,
-                containerColor = PrimaryGreen,
-                contentColor = Color.White,
-                modifier = Modifier.size(64.dp),
-                shape = CircleShape
-            ) {
-                Icon(
-                    Icons.Default.Add,
-                    contentDescription = "Add Medication",
-                    modifier = Modifier.size(32.dp)
-                )
+            if (medications.isNotEmpty()) {
+                FloatingActionButton(
+                    onClick = onAddClick,
+                    containerColor = PrimaryGreen,
+                    contentColor = Color.White,
+                    modifier = Modifier.size(64.dp),
+                    shape = CircleShape
+                ) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "Add Medication",
+                        modifier = Modifier.size(32.dp)
+                    )
+                }
             }
         }
     ) { paddingValues ->
