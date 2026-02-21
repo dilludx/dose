@@ -54,7 +54,7 @@ fun WelcomeScreen(
 
             // App Icon — static, no pulse
             Image(
-                painter = painterResource(id = R.drawable.app_icon),
+                painter = painterResource(id = R.mipmap.ic_launcher),
                 contentDescription = "Dose App Icon",
                 modifier = Modifier
                     .size(110.dp)
