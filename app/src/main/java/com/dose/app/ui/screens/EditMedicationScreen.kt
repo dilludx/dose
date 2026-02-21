@@ -33,7 +33,12 @@ fun EditMedicationScreen(
     onSave: (Medication) -> Unit
 ) {
     var name by remember { mutableStateOf(medication.name) }
-    var dosage by remember { mutableStateOf(medication.dosage) }
+    
+    val initialDosageParts = medication.dosage.split(" ", limit = 2)
+    var dosageAmount by remember { mutableStateOf(initialDosageParts.getOrNull(0) ?: medication.dosage) }
+    var dosageUnit by remember { mutableStateOf(initialDosageParts.getOrNull(1) ?: "mg") }
+    var unitExpanded by remember { mutableStateOf(false) }
+    
     var selectedFrequency by remember { mutableStateOf(medication.frequency) }
     var selectedTimes by remember { mutableStateOf(medication.getTimesList()) }
     var instructions by remember { mutableStateOf(medication.instructions) }
@@ -44,10 +49,12 @@ fun EditMedicationScreen(
     var editingTimeIndex by remember { mutableStateOf(-1) }
     
     val frequencies = listOf("Daily", "Twice Daily", "Three Times Daily", "Weekly", "As Needed")
+    val allUnits = listOf("mg", "ml", "g", "mcg", "Tablet(s)", "Capsule(s)", "Drops", "Puffs", "Units", "Patch(es)", "Injection(s)", "Sachet(s)", "Teaspoon(s)", "Tablespoon(s)")
     
-    val isValid = name.isNotBlank() && dosage.isNotBlank() && selectedTimes.isNotEmpty()
+    val currentDosage = if (dosageAmount.isNotBlank()) "$dosageAmount $dosageUnit" else ""
+    val isValid = name.isNotBlank() && dosageAmount.isNotBlank() && selectedTimes.isNotEmpty()
     val hasChanges = name != medication.name ||
-            dosage != medication.dosage ||
+            currentDosage != medication.dosage ||
             selectedFrequency != medication.frequency ||
             selectedTimes != medication.getTimesList() ||
             instructions != medication.instructions ||
@@ -75,7 +82,7 @@ fun EditMedicationScreen(
                             if (isValid) {
                                 val updated = medication.copy(
                                     name = name,
-                                    dosage = dosage,
+                                    dosage = currentDosage,
                                     frequency = selectedFrequency,
                                     times = selectedTimes.joinToString(","),
                                     instructions = instructions,
@@ -198,25 +205,65 @@ fun EditMedicationScreen(
                         fontWeight = FontWeight.Medium
                     )
                     Spacer(modifier = Modifier.height(8.dp))
-                    OutlinedTextField(
-                        value = dosage,
-                        onValueChange = { dosage = it },
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
-                        placeholder = { Text("e.g., 500mg, 1 tablet, 5ml") },
-                        leadingIcon = {
-                            Icon(
-                                Icons.Outlined.Scale,
-                                contentDescription = null,
-                                tint = PrimaryGreen
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        OutlinedTextField(
+                            value = dosageAmount,
+                            onValueChange = { dosageAmount = it },
+                            modifier = Modifier.weight(1f),
+                            placeholder = { Text("e.g., 500") },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.Scale,
+                                    contentDescription = null,
+                                    tint = PrimaryGreen
+                                )
+                            },
+                            shape = RoundedCornerShape(12.dp),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = PrimaryGreen,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                            ),
+                            singleLine = true
+                        )
+
+                        ExposedDropdownMenuBox(
+                            expanded = unitExpanded,
+                            onExpandedChange = { unitExpanded = it },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            OutlinedTextField(
+                                value = dosageUnit,
+                                onValueChange = {},
+                                readOnly = true,
+                                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = unitExpanded) },
+                                modifier = Modifier.menuAnchor(),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = PrimaryGreen,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outline
+                                )
                             )
-                        },
-                        shape = RoundedCornerShape(12.dp),
-                        colors = OutlinedTextFieldDefaults.colors(
-                            focusedBorderColor = PrimaryGreen,
-                            unfocusedBorderColor = MaterialTheme.colorScheme.outline
-                        ),
-                        singleLine = true
-                    )
+                            ExposedDropdownMenu(
+                                expanded = unitExpanded,
+                                onDismissRequest = { unitExpanded = false }
+                            ) {
+                                allUnits.forEach { unitSelection ->
+                                    DropdownMenuItem(
+                                        text = { Text(unitSelection) },
+                                        onClick = {
+                                            dosageUnit = unitSelection
+                                            unitExpanded = false
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
                 }
             }
             
