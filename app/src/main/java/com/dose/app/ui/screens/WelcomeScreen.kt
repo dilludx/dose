@@ -63,18 +63,7 @@ fun WelcomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // App Name — Extra Bold with brand color
-            Text(
-                text = "DOSE",
-                color = PrimaryGreen,
-                style = MaterialTheme.typography.displayLarge.copy(
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 64.sp,
-                    letterSpacing = 0.sp
-                )
-            )
-
-            Spacer(modifier = Modifier.height(6.dp))
+            // App Name removed to avoid redundancy with the logo
 
             // Tagline
             Text(
