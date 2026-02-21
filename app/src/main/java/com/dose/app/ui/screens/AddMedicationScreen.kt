@@ -52,7 +52,14 @@ fun AddMedicationScreen(
     var editingTimeIndex by remember { mutableStateOf(-1) }
     
     val frequencies = listOf("Daily", "Twice Daily", "Three Times Daily", "Weekly", "As Needed")
-    val allUnits = listOf("mg", "ml", "g", "mcg", "Tablet(s)", "Capsule(s)", "Drops", "Puffs", "Units", "Patch(es)", "Injection(s)", "Sachet(s)", "Teaspoon(s)", "Tablespoon(s)")
+    val allUnits = listOf(
+        "mg", "ml", "g", "mcg", "kg", "L", "oz", "mEq", "IU", "Units", "Drop(s)", "Teaspoon(s)", "Tablespoon(s)",
+        "Tablet(s)", "Capsule(s)", "Pill(s)", "Caplet(s)", "Lozenge(s)", "Pastille(s)", "Gummy(s)", "Chewable(s)", "Sachet(s)", "Powder(s)", "Granule(s)", "Pellet(s)",
+        "Syrup(s)", "Suspension(s)", "Solution(s)", "Elixir(s)", "Tincture(s)", "Emulsion(s)",
+        "Ointment(s)", "Cream(s)", "Gel(s)", "Lotion(s)", "Paste(s)", "Foam(s)", "Patch(es)", "Spray(s)", "Pump(s)", "Rub(s)", "Balm(s)",
+        "Puff(s)", "Inhalation(s)", "Ampoule(s)", "Vial(s)", "Injection(s)", "Syringe(s)", "Pen(s)", "Cartridge(s)", "Infusion(s)",
+        "Insert(s)", "Suppository(ies)", "Enema(s)", "Implant(s)", "Applicator(s)", "Dose(s)", "Kit(s)"
+    )
     
     val dosage = if (dosageAmount.isNotBlank()) "$dosageAmount $dosageUnit" else ""
     val isValid = name.isNotBlank() && dosageAmount.isNotBlank() && selectedTimes.isNotEmpty()
